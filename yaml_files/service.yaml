@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-service
+  namespace: node-hostname
+spec:
+  selector:
+    app: node
+    deployment: node-hostname
+  type: NodePort
+  ports:
+    - name: 3000-tcp
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

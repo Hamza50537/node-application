@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-deployment
+  labels:
+    app: node
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: node
+        image: hamza050537/node_hostname:v1
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+        resources:
+            limits:
+              cpu: 900m
+              memory: 2Gi
+            requests:
+              cpu: 360m
+              memory: 256Mi
+
+      imagePullSecrets:
+      - name: regcred
+        
+
